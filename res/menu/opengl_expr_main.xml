@@ -3,9 +3,29 @@
     tools:context="ustc.openglexpr.OpenglExprMainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_single_traingle"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:title="@string/action_single_traingle"/>
+    <item
+        android:id="@+id/action_double_traingle"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_double_traingle"/>
+    <item
+        android:id="@+id/action_quater"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_quater"/>
+    <item
+        android:id="@+id/action_cubic_cone"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_cubic_cone"/>
+    <item
+        android:id="@+id/action_cubic"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_cubic"/>
 
 </menu>

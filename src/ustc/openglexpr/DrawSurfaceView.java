@@ -3,6 +3,8 @@ package ustc.openglexpr;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import ustc.openglexpr.sharp.Cubic;
+import ustc.openglexpr.sharp.CubicCone;
 import ustc.openglexpr.sharp.DataPool;
 import ustc.openglexpr.sharp.QuaterSharp;
 import ustc.openglexpr.sharp.TraingleSharp;
@@ -34,39 +36,67 @@ public class DrawSurfaceView extends GLSurfaceView {
         Log.i(TAG, "touch glsurface action " + event.getAction());
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
-            mRender.increaseRotate(10.0f);
+            queueEvent(new Runnable() {
+                @Override
+                public void run() {
+                    mRender.increaseRotate(10.0f);
+                }
+            });
             break;
         default:
             break;
         }
         return super.onTouchEvent(event);
     }
+    
+    
 
     private void init() {
         mRender = new Renderer();
         setRenderer(mRender);
     }
 
+    public boolean updateSharpType(final int id) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                mRender.selectSharpType(id);
+            }
+        });
+        return true;
+    }
+
     private class Renderer implements GLSurfaceView.Renderer {
 
+        private TraingleSharp mTraingle = null;
         private TraingleSharp mOneTraingle = null;
         private TraingleSharp mTwoTraingle = null;
         private QuaterSharp mQuater = null;
+        private CubicCone mCubicCone = null;
+        private Cubic mCubic = null;
+        private int mSharpId = 0;
 
         @Override
         public void onDrawFrame(GL10 gl) {
             gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-            gl.glLoadIdentity();
-            gl.glTranslatef(0.0f, 0.5f, 0.0f);
-            mOneTraingle.draw(gl);
-
-            gl.glLoadIdentity();
-            gl.glTranslatef(0.0f, 0.5f, 0.0f);
-            mTwoTraingle.draw(gl);
-
-            gl.glLoadIdentity();
-            gl.glTranslatef(0.0f, -1.5f, 0.0f);
-            mQuater.draw(gl);
+            switch(mSharpId) {
+            case R.id.action_single_traingle:
+                mTraingle.draw(gl);
+                break;
+            case R.id.action_double_traingle:
+                mOneTraingle.draw(gl);
+                mTwoTraingle.draw(gl);
+                break;
+            case R.id.action_quater:
+                mQuater.draw(gl);
+                break;
+            case R.id.action_cubic_cone:
+                mCubicCone.draw(gl);
+                break;
+            case R.id.action_cubic:
+                mCubic.draw(gl);
+                break;
+            }
 
             gl.glLoadIdentity();
         }
@@ -90,17 +120,27 @@ public class DrawSurfaceView extends GLSurfaceView {
         }
 
         private void initSharps() {
+            mTraingle = new TraingleSharp(DataPool.TRAINGLE_COORDS);
+            mTraingle.updateColorBuffer(DataPool.TRAINGLE_COLORS);
             mOneTraingle = new TraingleSharp(DataPool.ONE_TRAINGLE_COORDS);
-            mOneTraingle.BLUE = 0.7f;
             mTwoTraingle = new TraingleSharp(DataPool.TWO_TRAINGLE_COORDS);
             mTwoTraingle.RED = 0.7f;
             mQuater = new QuaterSharp(DataPool.QUARTER_COORDS);
+            mCubicCone = new CubicCone();
+            mCubic = new Cubic();
         }
 
         public void increaseRotate(float rotate) {
+            mTraingle.ROTATE += rotate;
             mOneTraingle.ROTATE += rotate;
             mTwoTraingle.ROTATE += rotate;
             mQuater.ROTATE += rotate;
+            mCubicCone.increaseRotate(rotate);
+            mCubic.increaseRotate(rotate);
+        }
+
+        public void selectSharpType(int id) {
+            mSharpId = id;
         }
     }
 

@@ -3,6 +3,10 @@
 
     <string name="app_name">OpenglExpr</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_single_traingle">Single Traingle</string>
+    <string name="action_double_traingle">Double Traingle</string>
+    <string name="action_quater">Quater</string>
+    <string name="action_cubic_cone">Cubic Cone</string>
+    <string name="action_cubic">Cubic</string>
 
 </resources>

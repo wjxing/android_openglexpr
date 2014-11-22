@@ -4,34 +4,28 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class OpenglExprMainActivity extends Activity {
 
-    private DrawSurfaceView mTraingle = null;
+    private DrawSurfaceView mSurface = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_opengl_expr_main);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mTraingle = new DrawSurfaceView(this);
-        setContentView(mTraingle);
+        mSurface = new DrawSurfaceView(this);
+        setContentView(mSurface);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mTraingle.onPause();
+        mSurface.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mTraingle.onResume();
+        mSurface.onResume();
     }
 
     @Override
@@ -46,10 +40,7 @@ public class OpenglExprMainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        mSurface.updateSharpType(item.getItemId());
         return super.onOptionsItemSelected(item);
     }
 }
