@@ -7,6 +7,8 @@ import java.nio.ShortBuffer;
 
 public class SharpData {
 
+    protected static final int NR_POINTS = 3;
+    protected static final int NR_COLORS = 4;
     public float RED = 0.0f;
     public float GREEN = 25.0f;
     public float BLUE = 200.0f;

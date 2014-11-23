@@ -50,7 +50,7 @@ public final class DataPool {
     };
 
     ///////////////////////////////////////////////
-    //cubic cone
+    //cubic cone : method 1
     public static final float[] CUBIC_CONE_COLOR_1 = {
         0.5f, 0.0f, 0.0f, 0.0f,
         0.5f, 0.5f, 0.0f, 0.0f,
@@ -76,7 +76,7 @@ public final class DataPool {
     };
     public static final float[] CUBIC_CONE_COLOR_3 = {
         0.7f, 0.0f, 0.0f, 0.0f,
-        0.7f, 07f, 0.0f, 0.0f,
+        0.7f, 0.7f, 0.0f, 0.0f,
         0.7f, 0.7f, 0.7f, 0.0f,
     };
     public static final float[] CUBIC_CONE_COORDS_3 = {
@@ -99,6 +99,27 @@ public final class DataPool {
         0.0f, 0.0f, -0.5f,
         0.5f, 0.3f, 0.0f,
         -0.5f, 0.0f, 0.0f
+    };
+
+    ///////////////////////////////////////////////
+    //cubic cone : method 2
+    public static final float[] CUBIC_CONE_COLOR = {
+        0.8f, 0.0f, 0.0f, 0.0f,
+        0.8f, 0.8f, 0.0f, 0.0f,
+        0.8f, 0.8f, 0.8f, 0.0f,
+        0.3f, 0.3f, 0.3f, 0.0f,
+    };
+    public static final float[] CUBIC_CONE_COORDS = {
+        0.0f, 0.5f, 0.0f,
+        0.0f, 0.0f, 0.5f,
+        -0.5f, 0.0f, 0.0f,
+        0.3f, 0.3f, -0.3f
+    };
+    public static final short[] CUBIC_CONE_COORDS_IDX = {
+        0, 1, 2,
+        0, 3, 1,
+        0, 2, 3,
+        1, 2, 3
     };
 
     ///////////////////////////////////////////////

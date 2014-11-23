@@ -4,7 +4,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 public abstract class SharpAbs extends SharpData implements ColorAndRotateChanged {
 
-    protected static final int NR_POINTS = 3;
     protected int NR_VERTICES = 1;
 
     public SharpAbs() {
