@@ -8,5 +8,6 @@
     <string name="action_quater">Quater</string>
     <string name="action_cubic_cone">Cubic Cone</string>
     <string name="action_cubic">Cubic</string>
+    <string name="action_texture_piture">Texture Picture</string>
 
 </resources>

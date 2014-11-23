@@ -51,13 +51,11 @@ public class CubicCone extends Sharp3DAbs {
 
     @Override
     public void draw(GL10 gl) {
-        onChangedBegin(gl);
         mTraingle1.draw(gl);
         mTraingle2.draw(gl);
         mTraingle3.draw(gl);
         mTraingle4.draw(gl);
-        gl.glLoadIdentity();
-        gl.glTranslatef(0.3f, 0.0f, 0.0f);
+        onChangedBegin(gl);
         _mVtxBuf.position(0);
         _mColorBuf.position(0);
         _mIdxBuffer.position(0);
@@ -73,6 +71,7 @@ public class CubicCone extends Sharp3DAbs {
     }
 
     public void increaseRotate(float rotate) {
+        ROTATE += rotate;
         mTraingle1.ROTATE += rotate;
         mTraingle4.ROTATE += rotate;
         mTraingle3.ROTATE += rotate;

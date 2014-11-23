@@ -190,4 +190,22 @@ public final class DataPool {
         -0.5f, -0.4f, -0.5f,
         -0.5f, 0.6f, -0.5f
     };
+
+    ///////////////////////////////////////////////
+    //texture picture
+    public static final float[] TEXTURE_PIC_COORDS = {
+        -0.6f, -0.6f, 0.0f,
+        -0.6f, 0.6f, 0.0f,
+        0.6f, -0.6f, 0.0f,
+        0.6f, 0.6f, 0.0f
+    };
+    public static final float[] TEXTURE_COORDS = {
+        0.0f, 1.0f,
+        0.0f, 0.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f
+    };
+    public static final byte[] TEXTURE_IDX = {
+        0, 1, 2, 3
+    };
 }

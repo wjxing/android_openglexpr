@@ -9,9 +9,12 @@ public abstract class Sharp3DAbs extends SharpData implements ColorAndRotateChan
 
     @Override
     public void onChangedBegin(GL10 gl) {
+        gl.glLoadIdentity();
+        gl.glRotatef(ROTATE, 0.0f, 1.0f, 0.0f);
     }
     @Override
     public void onChangedEnd(GL10 gl) {
+        gl.glLoadIdentity();
     }
     protected int NR_FACE = 1;
     protected List<SharpAbs> mSharps = null;

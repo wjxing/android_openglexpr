@@ -8,6 +8,7 @@ import ustc.openglexpr.sharp.CubicCone;
 import ustc.openglexpr.sharp.DataPool;
 import ustc.openglexpr.sharp.QuaterSharp;
 import ustc.openglexpr.sharp.TraingleSharp;
+import ustc.openglexpr.texture.TexturePicture;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,12 +23,12 @@ public class DrawSurfaceView extends GLSurfaceView {
 
     public DrawSurfaceView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public DrawSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -51,8 +52,8 @@ public class DrawSurfaceView extends GLSurfaceView {
     
     
 
-    private void init() {
-        mRender = new Renderer();
+    private void init(Context ctx) {
+        mRender = new Renderer(ctx);
         setRenderer(mRender);
     }
 
@@ -74,27 +75,60 @@ public class DrawSurfaceView extends GLSurfaceView {
         private QuaterSharp mQuater = null;
         private CubicCone mCubicCone = null;
         private Cubic mCubic = null;
+        private TexturePicture mTP = null;
         private int mSharpId = 0;
+        private Context mCtx = null;
+        
+        public Renderer(Context ctx) {
+            super();
+            mCtx = ctx;
+        }
 
         @Override
         public void onDrawFrame(GL10 gl) {
             gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
             switch(mSharpId) {
             case R.id.action_single_traingle:
+                if (mTraingle == null) {
+                    mTraingle = new TraingleSharp(DataPool.TRAINGLE_COORDS);
+                    mTraingle.updateColorBuffer(DataPool.TRAINGLE_COLORS);
+                }
                 mTraingle.draw(gl);
                 break;
             case R.id.action_double_traingle:
+                if (mOneTraingle == null) {
+                    mOneTraingle = new TraingleSharp(DataPool.ONE_TRAINGLE_COORDS);
+                }
+                if (mTwoTraingle == null) {
+                    mTwoTraingle = new TraingleSharp(DataPool.TWO_TRAINGLE_COORDS);
+                    mTwoTraingle.RED = 0.7f;
+                }
                 mOneTraingle.draw(gl);
                 mTwoTraingle.draw(gl);
                 break;
             case R.id.action_quater:
+                if (mQuater == null) {
+                    mQuater = new QuaterSharp(DataPool.QUARTER_COORDS);
+                }
                 mQuater.draw(gl);
                 break;
             case R.id.action_cubic_cone:
+                if (mCubicCone == null) {
+                    mCubicCone = new CubicCone();
+                }
                 mCubicCone.draw(gl);
                 break;
             case R.id.action_cubic:
+                if (mCubic == null) {
+                    mCubic = new Cubic();
+                }
                 mCubic.draw(gl);
+                break;
+            case R.id.action_texture_piture:
+                if (mTP == null) {
+                    mTP = new TexturePicture(mCtx, gl);
+                }
+                mTP.draw(gl);
                 break;
             }
 
@@ -108,7 +142,6 @@ public class DrawSurfaceView extends GLSurfaceView {
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            initSharps();
             gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
             gl.glShadeModel(GL10.GL_SMOOTH);
             gl.glClearColor(DataPool.BK_RED, DataPool.BK_GREEN,
@@ -119,24 +152,14 @@ public class DrawSurfaceView extends GLSurfaceView {
             gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
         }
 
-        private void initSharps() {
-            mTraingle = new TraingleSharp(DataPool.TRAINGLE_COORDS);
-            mTraingle.updateColorBuffer(DataPool.TRAINGLE_COLORS);
-            mOneTraingle = new TraingleSharp(DataPool.ONE_TRAINGLE_COORDS);
-            mTwoTraingle = new TraingleSharp(DataPool.TWO_TRAINGLE_COORDS);
-            mTwoTraingle.RED = 0.7f;
-            mQuater = new QuaterSharp(DataPool.QUARTER_COORDS);
-            mCubicCone = new CubicCone();
-            mCubic = new Cubic();
-        }
-
         public void increaseRotate(float rotate) {
-            mTraingle.ROTATE += rotate;
-            mOneTraingle.ROTATE += rotate;
-            mTwoTraingle.ROTATE += rotate;
-            mQuater.ROTATE += rotate;
-            mCubicCone.increaseRotate(rotate);
-            mCubic.increaseRotate(rotate);
+            if (mTraingle !=null) mTraingle.ROTATE += rotate;
+            if (mOneTraingle !=null) mOneTraingle.ROTATE += rotate;
+            if (mTwoTraingle !=null) mTwoTraingle.ROTATE += rotate;
+            if (mQuater !=null) mQuater.ROTATE += rotate;
+            if (mCubicCone !=null) mCubicCone.increaseRotate(rotate);
+            if (mCubic !=null) mCubic.increaseRotate(rotate);
+            if (mTP != null) mTP.ROTATE += rotate;
         }
 
         public void selectSharpType(int id) {

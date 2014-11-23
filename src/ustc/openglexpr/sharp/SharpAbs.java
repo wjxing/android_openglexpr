@@ -18,6 +18,7 @@ public abstract class SharpAbs extends SharpData implements ColorAndRotateChange
             mColorBuffer.position(0);
             gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
         }
+        gl.glLoadIdentity();
         gl.glRotatef(ROTATE, 0.0f, 1.0f, 0.0f);
     }
 
@@ -25,6 +26,7 @@ public abstract class SharpAbs extends SharpData implements ColorAndRotateChange
     public void onChangedEnd(GL10 gl) {
         if (mColorBuffer != null)
             gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+        gl.glLoadIdentity();
     }
     
 
